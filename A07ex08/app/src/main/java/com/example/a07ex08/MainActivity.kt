@@ -17,17 +17,38 @@ import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
-    // Declarando uma variável lateinit para armazenar um ImageView
+    /**
+     * Este trecho de código pertence à MainActivity em uma aplicação Android.
+     *
+     * Passo a passo:
+     * 1. Declara uma lateinit var imageViewCaptured para armazenar a ImageView que exibirá a imagem capturada.
+     * 2. Registra um Activity Result para captura de imagem usando ActivityResultContracts.StartActivityForResult.
+     *    - No retorno, verifica se o resultado foi bem-sucedido e exibe a imagem capturada na ImageView.
+     * 3. Chama o método onCreate ao iniciar a atividade.
+     *    - Define o layout da atividade a partir do arquivo XML (activity_main.xml).
+     *    - Inicializa a imageViewCaptured com a referência à ImageView no layout.
+     *    - Encontra o botão de captura no layout e configura um listener de clique.
+     *    - Verifica se a permissão da câmera foi concedida; se não, solicita a permissão ao usuário.
+     *    - Se a permissão for concedida, exibe um Toast e inicia a captura de imagem.
+     * 4. O método captureImage inicia uma Intent para captura de imagem usando a câmera.
+     * 5. Define uma constante REQUEST_CAMERA_PERMISSION para o código de solicitação da permissão.
+     * 6. Sobrescreve o método onRequestPermissionsResult para lidar com o resultado da solicitação de permissão.
+     *    - Se a permissão for concedida, inicia a captura de imagem.
+     *    - Se a permissão for negada, você pode informar ao usuário.
+     *
+     * Propósito do código:
+     * Este código implementa a captura de imagem usando a câmera do dispositivo.
+     * Ao clicar no botão de captura, verifica a permissão da câmera, solicita se necessário,
+     * exibe um Toast informativo e inicia a captura de imagem, exibindo-a na ImageView.
+     */
+
     private lateinit var imageViewCaptured: ImageView
 
     private val captureActivityResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        // Verifica se o resultado foi OK
         if (result.resultCode == RESULT_OK) {
-            // Imagem capturada como um Bitmap
             val imageBitmap = result.data?.extras?.get("data") as Bitmap
-            // Define o Bitmap capturado no ImageView
             imageViewCaptured.setImageBitmap(imageBitmap)
         }
     }
@@ -36,34 +57,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Inicializa a variável imageViewCaptured com o ImageView do layout
         imageViewCaptured = findViewById(R.id.imageView_captured)
 
-        // Obtém uma referência ao botão de captura do layout
         val buttonCapture: Button = findViewById(R.id.button_capture)
 
-        // Configura um ouvinte de clique para o botão de captura
         buttonCapture.setOnClickListener {
-            // Verifica se a permissão da câmera não foi concedida
             if (ContextCompat.checkSelfPermission(
                     this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                // Solicita permissão para a câmera
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
             } else {
-                // Chama a função 'exibirToast' para exibir um Toast
-                exibirToast(this, "Fotografou")
+                showToast(this, "Olha o X")
 
-                // Inicia a captura de imagem
                 captureImage()
             }
         }
     }
 
-    // Função para iniciar a captura de imagem
     private fun captureImage() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        // Inicia a atividade de captura de imagem e aguarda o resultado
         captureActivityResult.launch(takePictureIntent)
     }
 
@@ -71,13 +83,11 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_CAMERA_PERMISSION = 100
     }
 
-    // Manipula a resposta da solicitação de permissão
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_CAMERA_PERMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // Se a permissão for concedida, inicia a captura de imagem
                     captureImage()
                 } else {
                     // Se a permissão for negada, você pode informar ao usuário aqui
@@ -92,8 +102,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 
-// Função para exibir um Toast na tela
-fun exibirToast(context: Context, mensagem: String) {
-    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show()
+fun showToast(context: Context, msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }
 
