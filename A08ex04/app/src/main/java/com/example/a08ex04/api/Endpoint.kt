@@ -5,9 +5,11 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-//Mesma ideia da interface dos slides porem separei pra ficar mais facil a reutilização
+/**
+ *  Este trecho de código pertence ao pacote api, que contém a interface Endpoint.
+ */
 interface Endpoint {
-    //Passando parametro path que sera recebido ao chamar o metodo
+
     @GET("api/")
     fun getUsers(
         @Query("results") results: Int

@@ -1,4 +1,4 @@
-package com.example.A08ex02
+package com.example.a08ex02
 
 import org.junit.Test
 

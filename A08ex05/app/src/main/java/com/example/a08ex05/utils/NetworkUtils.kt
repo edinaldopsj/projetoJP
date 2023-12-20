@@ -3,10 +3,11 @@ package com.example.a08ex05.utils
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+/**
+  * Este trecho de código pertence ao pacote util, que contém a classe NetworkUtils.
+  
+ */
 class NetworkUtils {
-    //Equivalente ao metodo static
-
-    //Separei o serviço do Retrofit nessa classe para poder ser reutilizado com mais facilidade
     companion object{
         fun getRetrofitInstance(path: String): Retrofit{
             return Retrofit.Builder()
