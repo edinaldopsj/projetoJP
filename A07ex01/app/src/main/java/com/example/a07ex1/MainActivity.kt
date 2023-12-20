@@ -1,38 +1,38 @@
 package com.example.a07ex1
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import android.content.Context
-import android.widget.Toast
 
+/**
+ * Este trecho de código pertence à função onCreate() de uma atividade Android.
+ *
+ * Passo a passo:
+ * 1. Chama o método onCreate da classe pai, realizando as inicializações necessárias.
+ * 2. Define o layout da atividade a partir do arquivo XML (activity_main.xml).
+ * 3. Encontra o TextView no layout usando o seu ID.
+ * 4. Configura um listener de clique para o TextView.
+ *    - Quando o TextView é clicado, a função translate() é chamada.
+ *
+ * Proposta do código:
+ * Este código tem como objetivo responder ao
+ * clique no TextView, chamando a função translate(), que realiza uma
+ * ação específica, neste caso, uma tradução de texto.
+ */
 class MainActivity : AppCompatActivity() {
-
-    // Método chamado quando a atividade é criada
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Define o layout da atividade com base em 'activity_main.xml'
         setContentView(R.layout.activity_main)
 
-        // Encontra o elemento TextView no layout com o ID 'textView'
         val textView = findViewById<TextView>(R.id.textView)
 
-        // Chama a snackbar e o toast ao clicar no textview
         textView.setOnClickListener {
-            // Cria um Snackbar que exibe o texto do TextView
-            val snackBar = Snackbar.make(it, textView.text, Snackbar.LENGTH_LONG)
-            snackBar.show()
-
-            // Chama a função 'exibirToast' para exibir um Toast
-            exibirToast(this, "Clicou!!!!")
+           translate(textView)
         }
     }
 }
 
-// Função para exibir um Toast na tela
-fun exibirToast(context: Context, mensagem: String) {
-    Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show()
+
+fun translate(textView: TextView) {
+    textView.text = "Olá mundo!"
 }
