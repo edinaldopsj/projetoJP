@@ -8,5 +8,11 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="692dp" />
+
+    <Button
+        android:id="@+id/backToTopButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar ao topo" />
 </LinearLayout>
